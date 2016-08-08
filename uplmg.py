@@ -6,8 +6,6 @@ import sys, getopt
 
 # fonction principal
 def main(argv):
-	
-	inputfile = ""
 
 	#Si la longuer de l'argument est egale a 1 on exit
 	if len(sys.argv) == 1 :
@@ -30,15 +28,11 @@ def main(argv):
 			sys.exit()
 		#SI c'est -f ou --file on upload le fichier
 		elif opt in ("-f", "--file"):
-			inputfile = arg
-
-			files = { 'file' : open(inputfile , 'rb') }
+			files = { 'file' : open(arg , 'rb') }
 			data = { 'senderid' : 'cmdUplmg' }
 			r = requests.post('https://uplmg.com/file/upload', files=files, data=data)
 			print r.text
 			sys.exit()
-
-	#print 'File to upload : ', inputfile
 
 if __name__ == "__main__":
 	main(sys.argv[1:])
