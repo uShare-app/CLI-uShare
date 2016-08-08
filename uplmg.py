@@ -16,7 +16,7 @@ def main(argv):
 
 	#On essaye de recuper les parametres
 	try:
-		opts, args = getopt.getopt(argv, 'hf:', ["ffile="])
+		opts, args = getopt.getopt(argv, 'hf:', ["file="])
 	
 	except getopt.GetoptError:
 		print './uplmg.py -f <file to upload>'
@@ -28,8 +28,8 @@ def main(argv):
 		if opt == '-h':
 			print './uplmg.py -f <file to upload>'
 			sys.exit()
-		#SI c'est -f ou --ffile on upload le fichier
-		elif opt in ("-f", "--ffile"):
+		#SI c'est -f ou --file on upload le fichier
+		elif opt in ("-f", "--file"):
 			inputfile = arg
 
 			files = { 'file' : open(inputfile , 'rb') }
