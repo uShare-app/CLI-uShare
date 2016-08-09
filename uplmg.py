@@ -5,39 +5,45 @@ import sys, getopt
 
 from api import *
 
-sendHelp = '--sendfile <file to upload>\n--showheaders <shortname>\n--showstats'
+sendHelp = 'Usage :\nuplmg sendfile <file>\nuplmg showheaders <shortname>\nuplmg showstats'
 
 # main function
-def main(argv):
+def main( argv ):
 
-	if len(sys.argv) == 1 :
+	if len( sys.argv ) == 1:
 		print sendHelp
 		sys.exit()
 
-	try:
-		opts, args = getopt.getopt(argv, 'h:', ["sendfile=", "showheaders=", "showstats="])
 	
-	except getopt.GetoptError:
-		print sendHelp
-		sys.exit(2)
+	opts, args = getopt.getopt( argv, 'h:')
 
-	for opt, arg in opts:
-
-		if opt == '-h':
+	#Send File	
+	if "sendfile" in args:
+		if len( args ) == 2:
+			uploadFile( args[ 1 ] )
+			sys.exit()
+		else:
 			print sendHelp
-			sys.exit()
 
-		elif opt == '--sendfile':
-			uploadFile(arg)
+	#Show headers of a uploaded file
+	elif "showheaders" in args:
+		if len( args ) == 2:
+			showheaders( args[ 1 ] )
 			sys.exit()
+		else:
+			print sendHelp
 
-		elif opt == '--showheaders':
-			showHeaders(arg)
-			sys.exit()
-
-		elif opt == '--showstats':
+	#Show the stats
+	elif "showstats" in args:
+		if len ( args ) == 1:
 			showStats()
-			sys.exit()
+			sys.exit
+		else:
+			print sendHelp
+
+	#else send help
+	else:
+		print sendHelp
 
 if __name__ == "__main__":
 	main(sys.argv[1:])
