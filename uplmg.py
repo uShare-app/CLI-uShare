@@ -13,7 +13,6 @@ def main( argv ):
 	if len( sys.argv ) == 1:
 		print sendHelp
 		sys.exit()
-
 	
 	opts, args = getopt.getopt( argv, 'h:')
 
@@ -28,7 +27,7 @@ def main( argv ):
 	#Show headers of a uploaded file
 	elif "showheaders" in args:
 		if len( args ) == 2:
-			showheaders( args[ 1 ] )
+			showHeaders( args[ 1 ] )
 			sys.exit()
 		else:
 			print sendHelp
