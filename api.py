@@ -25,3 +25,10 @@ def showHeaders(shortname):
 	for nom, valeur in r.headers.items():
 		if nom.startswith('Uplmg'):
 			print nom + ": " + valeur
+
+
+def showStats():
+	r = requests.get(urlApi + "api/info/stats")
+	stats = json.loads(r.text)
+	for nom, valeur in stats.items():
+		print nom + ": " + str(valeur)
