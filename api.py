@@ -1,6 +1,6 @@
-import requests
 import json
 import mimetypes
+import requests
 
 urlApi = 'https://uplmg.com/'
 
@@ -17,18 +17,18 @@ def uploadFile(file):
 	data = { 'senderid' : 'cmdUplmg' }
 	
 	r = requests.post(urlApi + 'file/upload', files=files, data=data)
-	print r.text
+	print( r.text )
 
 #Get headers
 def showHeaders(shortname):
 	r = requests.head(urlApi + shortname)
 	for nom, valeur in r.headers.items():
 		if nom.startswith('Uplmg'):
-			print nom + ": " + valeur
+			print( nom + ": " + valeur )
 
-
+#Show Stats
 def showStats():
 	r = requests.get(urlApi + "api/info/stats")
 	stats = json.loads(r.text)
 	for nom, valeur in stats.items():
-		print nom + ": " + str(valeur)
+		print( nom + ": " + str( valeur ) )

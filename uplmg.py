@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # conding: utf-8
 
 import sys, getopt
@@ -11,7 +11,7 @@ sendHelp = 'Usage :\nuplmg <file>\nuplmg sendfile <file>\nuplmg showheaders <sho
 def main( argv ):
 
 	if len( sys.argv ) == 1:
-		print sendHelp
+		print ( sendHelp )
 		sys.exit()
 	
 	opts, args = getopt.getopt( argv, 'h:')
@@ -26,7 +26,7 @@ def main( argv ):
 			uploadFile( args[ 1 ] )
 			sys.exit()
 		else:
-			print sendHelp
+			print( sendHelp )
 
 	#Show headers of a uploaded file
 	elif "showheaders" in args:
@@ -34,7 +34,7 @@ def main( argv ):
 			showHeaders( args[ 1 ] )
 			sys.exit()
 		else:
-			print sendHelp
+			print( sendHelp )
 
 	#Show the stats
 	elif "showstats" in args:
@@ -42,11 +42,11 @@ def main( argv ):
 			showStats()
 			sys.exit
 		else:
-			print sendHelp
+			print( sendHelp )
 
 	#else send help
 	else:
-		print sendHelp
+		print( sendHelp )
 
 if __name__ == "__main__":
 	main(sys.argv[1:])
