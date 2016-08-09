@@ -5,7 +5,7 @@ import sys, getopt
 
 from api import *
 
-sendHelp = 'Usage :\nuplmg sendfile <file>\nuplmg showheaders <shortname>\nuplmg showstats'
+sendHelp = 'Usage :\nuplmg <file>\nuplmg sendfile <file>\nuplmg showheaders <shortname>\nuplmg showstats'
 
 # main function
 def main( argv ):
@@ -15,6 +15,10 @@ def main( argv ):
 		sys.exit()
 	
 	opts, args = getopt.getopt( argv, 'h:')
+
+	if len( args ) == 1:
+		uploadFile( args[ 0 ] )
+		sys.exit()
 
 	#Send File	
 	if "sendfile" in args:
