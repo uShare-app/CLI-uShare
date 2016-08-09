@@ -15,7 +15,7 @@ The CLI use all of the fonctionnality of the API
 - You're ready to go !
 
 ##Lists of commands
-- `uplmg <file>` or `uplmg sendfile <file>` : Send a file to the serveur
+- `uplmg <file>` or `uplmg sendfile <file>` : Send a file to the server
 - `uplmg download <url / shortname>` : Download the file
 - `uplmg showheaders <shortname>` : Show the headers of the file
 - `uplmg showstats` : Show the stats of the server
