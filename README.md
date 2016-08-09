@@ -4,7 +4,7 @@ CLI Uplmg use the API of Uplimg's server (you can find the github project [here]
 
 ## Getting started
 
-The app let you use the entire API from the command line.
+The app let you use the entire API from the command line. By default the app use the official serveur available at `https://uplmg.com`. Docs of the API are available at [https://doc.uplmg.com/](https://doc.uplmg.com).
 
 - You need Python (3 is recommanded)
 - You need Requests:
