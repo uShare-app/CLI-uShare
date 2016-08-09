@@ -5,7 +5,7 @@ CLI Uplmg use the API of Uplmg's server (you can find the github project [here](
 ##Getting started
 The CLI use all of the fonctionnality of the API
 
-- You need Python (at least 3)
+- You need Python (3 is recommanded)
 - You need Requests for this :
   - You need Pip :
       - `python get-pip.py`
