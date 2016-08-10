@@ -33,7 +33,6 @@ def uploadFile( urlApi, file ):
 # Download a file
 # url : url of the file
 def downloadFile( urlApi, url ):
-	print url
 	url = str( url )
 	
 	try:
