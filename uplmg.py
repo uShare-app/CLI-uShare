@@ -3,9 +3,19 @@
 
 import sys, getopt
 
-from api import *
+sys.path.insert(0, './api/')
 
-sendHelp = 'Usage :\nuplmg <file>\nuplmg sendfile <file>\nuplmg download <url / shortname>\nuplmg showheaders <shortname>\nuplmg showstats'
+from file import *
+from search import *
+from stats import *
+
+sendHelp = 'Commands :'
+sendHelp += "\nuplmg <file>"
+sendHelp += "\nuplmg sendfile <file>"
+sendHelp += "\nuplmg download <url / shortname>"
+sendHelp += "\nuplmg showheaders <shortname>"
+sendHelp += "\nuplmg showstats"
+sendHelp += "\nuplmg search"
 
 # main function
 def main( argv ):

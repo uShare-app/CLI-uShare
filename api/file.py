@@ -21,7 +21,7 @@ def uploadFile( file ):
 			mime = "text/plain"
 
 		files = { 'file' : ( filename, open( file , 'rb' ), mime ) }
-		data = { 'senderid' : 'cmdUplmg' }
+		data = { 'senderid' : 'cli-Uplmg' }
 		
 		r = requests.post( urlApi + '/file/upload', files=files, data=data )
 		print( r.text )
@@ -35,18 +35,19 @@ def uploadFile( file ):
 # Download a file
 # url : url of the file
 def downloadFile( url ):
+	print url
 	url = str( url )
 	
 	try:
 		if not url.startswith( 'http' ):
-			url = urlApi + url
+			url = urlApi + "/"+ url
 
 		call( [ 'wget', url] )
 		head = requests.head( url )
 		call( [ 'mv', url.split( '/' )[ -1 ] , head.headers[ 'Uplmg-Filename' ] + "." + head.headers[ 'Uplmg-Extension' ] ] )
 
 	except KeyError:
-		print( "" )
+		print( "Key Error" )
 
 	except:
 		print( "Unexpected error : ", sys.exc_info()[ 0 ] )
@@ -63,20 +64,3 @@ def showHeaders( shortname ):
 
 	if not find:
 		print( "Shortname Not Found" )
-
-#Show Stats
-def showStats():
-	r = requests.get( urlApi + '/api/files/stats' )
-	stats = json.loads( r.text )
-	for name, value in stats.items():
-		print( name + ": " + str( value ) )
-
-
-#Show Search
-def showSearch():
-	r = requests.get( urlApi + '/api/files/search' )
-	search = json.loads( r.text )
-	for i in search:
-		for name, value in i.items():
-			if name == "shortName":
-				print name + ": " + value
