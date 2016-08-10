@@ -11,6 +11,8 @@ The app let you use the entire API from the command line. By default the app use
   - You need Pip:
       - `wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py` (see [here](https://pip.pypa.io/en/stable/installing/))
   - And : `pip install requests`
+- You need Tabulate:
+  - `pip install tabulate`
 - Clone the repository
 - Run ./uplmg
 - You're ready to go !
