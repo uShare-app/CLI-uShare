@@ -5,11 +5,9 @@ import sys
 
 from subprocess import call
 
-urlApi = "https://uplmg.com"
-
 # Upload a file
 # file : path of the file
-def uploadFile( file ):
+def uploadFile( urlApi, file ):
 
 	try:
 		mimetypes.init()
@@ -34,7 +32,7 @@ def uploadFile( file ):
 
 # Download a file
 # url : url of the file
-def downloadFile( url ):
+def downloadFile( urlApi, url ):
 	print url
 	url = str( url )
 	
@@ -54,7 +52,7 @@ def downloadFile( url ):
 
 
 #Get headers
-def showHeaders( shortname ):
+def showHeaders( urlApi, shortname ):
 	r = requests.head( urlApi + shortname )
 	find = False
 	for name, value in r.headers.items():

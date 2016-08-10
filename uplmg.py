@@ -2,8 +2,13 @@
 # conding: utf-8
 
 import sys, getopt
+import json
 
-sys.path.insert(0, './api/')
+path = __file__[0 : - 8]
+
+sys.path.insert(0, path + 'api/')
+
+urlApi = json.load(open(path + "config.json"))['url']
 
 from file import *
 from search import *
@@ -30,7 +35,7 @@ def main( argv ):
 	#CMD uplmg sendfile <file>
 	if "sendfile" in args:
 		if len( args ) == 2:
-			uploadFile( args[ 1 ] )
+			uploadFile( urlApi, args[ 1 ] )
 			sys.exit()
 		else:
 			print( sendHelp )
@@ -39,7 +44,7 @@ def main( argv ):
 	#CMD : uplmg downloadfile <url / shortname>
 	elif "download" in args:
 		if len( args ) == 2:
-			downloadFile( args[ 1 ] )
+			downloadFile( urlApi, args[ 1 ] )
 			sys.exit()
 		else:
 			print( sendHelp )
@@ -48,7 +53,7 @@ def main( argv ):
 	#CMD : uplmg <showheaders>
 	elif "showheaders" in args:
 		if len( args ) == 2:
-			showHeaders( args[ 1 ] )
+			showHeaders( urlApi, args[ 1 ] )
 			sys.exit()
 		else:
 			print( sendHelp )
@@ -57,21 +62,21 @@ def main( argv ):
 	#CMD : uplmg <showstats>
 	elif "showstats" in args:
 		if len ( args ) == 1:
-			showStats()
+			showStats( urlApi )
 			sys.exit
 		else:
 			print( sendHelp )
 
 	elif "search" in args:
 		if len ( args ) == 1:
-			showSearch()
+			showSearch( urlApi )
 			sys.exit
 		else:
 			print( sendHelp )
 
 	#CMD : uplmg <file>
 	elif len( args ) == 1:
-		uploadFile( args[ 0 ] )
+		uploadFile( urlApi, args[ 0 ] )
 		sys.exit()
 
 if __name__ == "__main__":

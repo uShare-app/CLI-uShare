@@ -3,10 +3,8 @@ import mimetypes
 import requests
 import sys
 
-urlApi = "https://uplmg.com"
-
 #Show Search
-def showSearch():
+def showSearch( urlApi ):
 	r = requests.get( urlApi + '/api/files/search' )
 	search = json.loads( r.text )
 	for i in search:
