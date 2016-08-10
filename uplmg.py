@@ -52,6 +52,13 @@ def main( argv ):
 		else:
 			print( sendHelp )
 
+	elif "search" in args:
+		if len ( args ) == 1:
+			showSearch()
+			sys.exit
+		else:
+			print( sendHelp )
+
 	#CMD : uplmg <file>
 	elif len( args ) == 1:
 		uploadFile( args[ 0 ] )

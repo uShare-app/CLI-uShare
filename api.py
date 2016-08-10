@@ -5,7 +5,7 @@ import sys
 
 from subprocess import call
 
-urlApi = 'https://uplmg.com/'
+urlApi = "https://uplmg.com"
 
 # Upload a file
 # file : path of the file
@@ -23,7 +23,7 @@ def uploadFile( file ):
 		files = { 'file' : ( filename, open( file , 'rb' ), mime ) }
 		data = { 'senderid' : 'cmdUplmg' }
 		
-		r = requests.post( urlApi + 'file/upload', files=files, data=data )
+		r = requests.post( urlApi + '/file/upload', files=files, data=data )
 		print( r.text )
 
 	except IOError:
@@ -56,9 +56,9 @@ def downloadFile( url ):
 def showHeaders( shortname ):
 	r = requests.head( urlApi + shortname )
 	find = False
-	for nom, valeur in r.headers.items():
-		if nom.startswith( 'Uplmg' ):
-			print( nom + ": " + valeur )
+	for name, value in r.headers.items():
+		if name.startswith( 'Uplmg' ):
+			print( name + ": " + value )
 			find = True
 
 	if not find:
@@ -66,7 +66,17 @@ def showHeaders( shortname ):
 
 #Show Stats
 def showStats():
-	r = requests.get( urlApi + 'api/info/stats' )
+	r = requests.get( urlApi + '/api/files/stats' )
 	stats = json.loads( r.text )
-	for nom, valeur in stats.items():
-		print( nom + ": " + str( valeur ) )
+	for name, value in stats.items():
+		print( name + ": " + str( value ) )
+
+
+#Show Search
+def showSearch():
+	r = requests.get( urlApi + '/api/files/search' )
+	search = json.loads( r.text )
+	for i in search:
+		for name, value in i.items():
+			if name == "shortName":
+				print name + ": " + value
