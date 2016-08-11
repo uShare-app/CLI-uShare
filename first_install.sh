@@ -10,6 +10,7 @@ fi
 
 requests=`pip list | grep "requests"`
 tabulate=`pip list | grep "tabulate"`
+
 if [ -z "$requests" ]; then
 	pip install requests
 fi
