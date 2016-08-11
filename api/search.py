@@ -14,7 +14,7 @@ def showSearch( urlApi ):
 	for i in search:
 		data = []
 		data.append(i['shortName'])
-		data.append(i['originalFileName'])
+		data.append(i['originalFileName'][0: 45])
 		data.append(i['size'])
 		data.append(i['encoding'])
 		data.append(i['mimetype'])

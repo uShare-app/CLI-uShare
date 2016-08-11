@@ -38,7 +38,7 @@ def downloadFile( urlApi, url ):
 	try:
 		if not url.startswith( 'http' ):
 			url = urlApi + "/"+ url
-
+			
 		call( [ 'wget', url] )
 		head = requests.head( url )
 		call( [ 'mv', url.split( '/' )[ -1 ] , head.headers[ 'Uplmg-Filename' ] + "." + head.headers[ 'Uplmg-Extension' ] ] )
