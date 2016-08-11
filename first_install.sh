@@ -5,7 +5,8 @@ sudo apt install python3
 if [ -f "get-pip.py" ]; then
 	echo 'Already download !'
 else
-	wget https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py && rm get-pip.py
+	wget https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py
+	pip install --upgrade pip
 fi
 
 requests=`pip list | grep "requests"`
