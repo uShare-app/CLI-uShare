@@ -23,7 +23,7 @@ The app let you use the entire API from the command line. By default the app use
 - `uplmg download <url / shortname>`: Download the file
 - `uplmg showheaders <shortname>`: Show the headers of the file
 - `uplmg showstats`: Show the stats of the server
-- `uplmg search`: Search file
+- `uplmg search [-p <number>] [-d <date format aaaa-mm-jj>]`: Search file with a date or a page
 
 ## And more
 
