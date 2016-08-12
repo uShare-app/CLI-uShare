@@ -39,4 +39,4 @@ def showSearch( urlApi, page, date ):
 
 		datas.append(data)
 
-	#print(tabulate(datas, headers=headers, tablefmt='orgtbl'))
+	print(tabulate(datas, headers=headers, tablefmt='orgtbl'))
