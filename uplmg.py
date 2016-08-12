@@ -61,18 +61,28 @@ def main( argv ):
 	#Show the stats
 	#CMD : uplmg <showstats>
 	elif "showstats" in args:
-		if len ( args ) == 1:
+		if len( args ) == 1:
 			showStats( urlApi )
 			sys.exit
 		else:
 			print( sendHelp )
 
+	#Show the search
+	#CMD : uplmg search [-p <number>] [-d <date format aaaa-mm-jj>]
 	elif "search" in args:
-		if len ( args ) == 1:
-			showSearch( urlApi )
-			sys.exit
-		else:
+		page = 0
+		date = 0
+		try:
+			if '-p' in args:
+				page = int( args[ args.index( '-p' ) + 1] )
+			if '-d' in args:
+				date = str( args[ args.index( '-d' ) + 1 ] )
+		except:
 			print( sendHelp )
+			sys.exit()
+
+		showSearch( urlApi, page, date )
+		sys.exit
 
 	#CMD : uplmg <file>
 	elif len( args ) == 1:

@@ -6,10 +6,20 @@ import sys
 from tabulate import tabulate
 
 #Show Search
-def showSearch( urlApi ):
+def showSearch( urlApi, page, date ):
 	headers = ['shortName', 'originalFileName', 'size', 'encoding', 'mimetype', 'extension', 'senderid', 'views']
 	datas = []
-	r = requests.get( urlApi + '/api/files/search' )
+	req = urlApi + '/api/files/search'
+
+	if date != 0:
+		split = date.split('-')
+		if len( split ) == 3 and len( split[0] ) == 4 and len ( split[1] ) == 2 and len ( split[2] ) == 2:
+			req += '/' + str ( date )
+
+	if page != 0:
+		req += '/' + str( page )
+
+	r = requests.get( req )
 	search = json.loads( r.text )
 	for i in search:
 		data = []
@@ -29,4 +39,4 @@ def showSearch( urlApi ):
 
 		datas.append(data)
 
-	print(tabulate(datas, headers=headers, tablefmt='orgtbl'))
+	#print(tabulate(datas, headers=headers, tablefmt='orgtbl'))
