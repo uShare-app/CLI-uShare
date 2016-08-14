@@ -8,7 +8,17 @@ path = __file__[0 : - 8]
 
 sys.path.insert(0, path + 'api/')
 
-urlApi = json.load(open(path + "config.json"))['url']
+config = ""
+
+try:
+	config = open(path + "config.json")
+except:
+	config = open(path + "config.json", "w")
+	config.write('{"url" : "https://uplmg.com"}')
+	config.close()
+	config = open(path + "config.json")
+
+urlApi = json.load(config)['url']
 
 from file import *
 from search import *
@@ -21,6 +31,7 @@ sendHelp += "\nuplmg download <url / shortname>"
 sendHelp += "\nuplmg showheaders <shortname>"
 sendHelp += "\nuplmg showstats"
 sendHelp += "\nuplmg search"
+
 
 # main function
 def main( argv ):
