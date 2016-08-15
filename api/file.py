@@ -2,62 +2,66 @@ import json
 import mimetypes
 import requests
 import sys
+import pyperclip
 
 from subprocess import call
+from termcolor import colored
 
 # Upload a file
 # file : path of the file
-def uploadFile( urlApi, file ):
+def uploadFile(urlApi, file):
 
 	try:
 		mimetypes.init()
-		filename = file.split( '/' )[ -1 ]
+		filename = file.split('/')[-1]
 
 		try:
-			mime = mimetypes.types_map[ '.' + filename.split( '.' )[ -1 ] ]
+			mime = mimetypes.types_map['.' + filename.split('.')[-1]]
 		except KeyError:
-			mime = "text/plain"
+			mime = 'text/plain'
 
-		files = { 'file' : ( filename, open( file , 'rb' ), mime ) }
-		data = { 'senderid' : 'cli-Uplmg' }
+		files = {'file' : (filename, open(file , 'rb'), mime)}
+		data = {'senderid' : 'cli-Uplmg'}
 		
-		r = requests.post( urlApi + '/file/upload', files=files, data=data )
-		print( r.text )
+		r = requests.post(urlApi + '/file/upload', files=files, data=data)
+		print colored(r.text, 'blue')
+		pyperclip.copy(r.text)
+		print colored('Copied in clipboard', 'green')
 
 	except IOError:
-		print( "File not Found" )
+		print colored('File not Found' , 'red')
 
 	except:
-		print( "Unexpected error : ", sys.exc_info()[ 0 ] )
+		print colored('Unexpected error : ', sys.exc_info()[0], 'red')
 
 # Download a file
 # url : url of the file
-def downloadFile( urlApi, url ):
-	url = str( url )
+def downloadFile(urlApi, url):
+	url = str(url)
 	
 	try:
-		if not url.startswith( 'http' ):
-			url = urlApi + "/"+ url
+		if not url.startswith('http'):
+			url = urlApi + '/' + url
 			
-		call( [ 'wget', url] )
-		head = requests.head( url )
-		call( [ 'mv', url.split( '/' )[ -1 ] , head.headers[ 'Uplmg-Filename' ] + "." + head.headers[ 'Uplmg-Extension' ] ] )
+		call(['wget', url])
+		head = requests.head(url)
+		call(['mv', url.split('/')[-1] , head.headers['Uplmg-Filename'] + "." + head.headers['Uplmg-Extension']])
 
 	except KeyError:
-		print( "Key Error" )
+		print colored('Key Error' , 'red')
 
 	except:
-		print( "Unexpected error : ", sys.exc_info()[ 0 ] )
+		print colored('Unexpected error : ', sys.exc_info()[0], 'red')
 
 
 #Get headers
-def showHeaders( urlApi, shortname ):
-	r = requests.head( urlApi + shortname )
+def showHeaders(urlApi, shortname):
+	r = requests.head(urlApi + '/' + shortname)
 	find = False
 	for name, value in r.headers.items():
-		if name.startswith( 'Uplmg' ):
-			print( name + ": " + value )
+		if name.startswith('Uplmg'):
+			print colored(name, 'yellow'), colored(':', 'white'), colored(value, 'blue')
 			find = True
 
 	if not find:
-		print( "Shortname Not Found" )
+		print colored('Shortname Not Found', 'red')
