@@ -15,14 +15,13 @@ from stats import *
 from termcolor import colored
 
 configFile = ""
-localVersion = 0.1
+localVersion = "0.2-Beta"
 fileVersion = json.loads(requests.get("https://update.uplmg.com/cli.json").text)
 
-if(float(fileVersion['version']) != localVersion):
+if fileVersion['version'] != localVersion:
 	print colored('A new release of CLI is now available', 'red')
 	print colored('You can download it on ' + fileVersion['url'], 'red')
 	print colored('Update : ' + fileVersion['description'], 'red')
-
 
 try:
 	configFile = open(path + "config.json")
@@ -36,8 +35,8 @@ urlApi = json.load(configFile)['url']
 
 
 sendHelp = colored('Commands :', 'green')
-sendHelp += colored("\nuplmg <file>", 'yellow')
-sendHelp += colored("\nuplmg sendfile <file>", 'yellow')
+sendHelp += colored("\nuplmg <file> [-c]", 'yellow')
+sendHelp += colored("\nuplmg sendfile <file> [-c]", 'yellow')
 sendHelp += colored("\nuplmg download <url / shortname>", 'yellow')
 sendHelp += colored("\nuplmg showheaders <shortname>", 'yellow')
 sendHelp += colored("\nuplmg showstats", 'yellow')
@@ -56,8 +55,12 @@ def main(argv):
 	#Send File
 	#CMD uplmg sendfile <file>
 	if "sendfile" in args:
-		if len(args) == 2:
-			uploadFile(urlApi, args[1])
+		if len(args) >= 2:
+			copy = False
+			if '-c' in args:
+				copy = True
+
+			uploadFile(urlApi, args[1], copy)
 			sys.exit()
 		else:
 			print(sendHelp)
@@ -107,8 +110,12 @@ def main(argv):
 		sys.exit
 
 	#CMD : uplmg <file>
-	elif len(args) == 1:
-		uploadFile(urlApi, args[0])
+	elif len(args) >= 1:
+		copy = False
+		if '-c' in args:
+			copy = True
+		uploadFile(urlApi, args[0], copy)
+
 		sys.exit()
 
 if __name__ == "__main__":

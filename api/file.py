@@ -9,7 +9,7 @@ from termcolor import colored
 
 # Upload a file
 # file : path of the file
-def uploadFile(urlApi, file):
+def uploadFile(urlApi, file, copy):
 
 	try:
 		mimetypes.init()
@@ -24,9 +24,12 @@ def uploadFile(urlApi, file):
 		data = {'senderid' : 'cli-Uplmg'}
 		
 		r = requests.post(urlApi + '/file/upload', files=files, data=data)
+
 		print colored(r.text, 'blue')
-		pyperclip.copy(r.text)
-		print colored('Copied in clipboard', 'green')
+		
+		if copy == True:
+			pyperclip.copy(r.text)
+			print colored('Copied in clipboard', 'green')
 
 	except IOError:
 		print colored('File not Found' , 'red')

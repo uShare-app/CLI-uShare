@@ -19,7 +19,7 @@ The app let you use the entire API from the command line. By default the app use
 
 ## Lists of commands
 
-- `uplmg <file>` or `uplmg sendfile <file>`: Send a file to the server
+- `uplmg <file> [-c]` or `uplmg sendfile <file> [-c]`: Send a file to the server 
 - `uplmg download <url / shortname>`: Download the file
 - `uplmg showheaders <shortname>`: Show the headers of the file
 - `uplmg showstats`: Show the stats of the server
