@@ -114,8 +114,8 @@ def main(argv):
 		copy = False
 		if '-c' in args:
 			copy = True
-		uploadFile(urlApi, args[0], copy)
 
+		uploadFile(urlApi, args[0], copy)
 		sys.exit()
 
 if __name__ == "__main__":

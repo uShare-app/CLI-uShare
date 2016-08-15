@@ -1,11 +1,14 @@
 import json
 import mimetypes
-import requests
+import requests, grequests
 import sys
 import pyperclip
 
 from subprocess import call
 from termcolor import colored
+from utils import *
+from time import sleep
+from requests_toolbelt import MultipartEncoder, MultipartEncoderMonitor
 
 # Upload a file
 # file : path of the file
@@ -20,22 +23,38 @@ def uploadFile(urlApi, file, copy):
 		except KeyError:
 			mime = 'text/plain'
 
-		files = {'file' : (filename, open(file , 'rb'), mime)}
-		data = {'senderid' : 'cli-Uplmg'}
+		encoder = MultipartEncoder(
+		{
+			'senderid': 'cli-Uplmg', 
+			'file':  (filename, open(file, 'rb'), mime)
+		})
 		
-		r = requests.post(urlApi + '/file/upload', files=files, data=data)
+		callback = create_callback(encoder)
+		monitor = MultipartEncoderMonitor(encoder, callback)
 
-		print colored(r.text, 'blue')
-		
+		r = requests.post
+		(
+			urlApi + '/file/upload', 
+			data=monitor, 
+			headers=
+			{
+				'Content-Type': monitor.content_type
+			}
+		)
+
+		print colored('\n' + r.text, 'blue')
+
 		if copy == True:
 			pyperclip.copy(r.text)
 			print colored('Copied in clipboard', 'green')
 
-	except IOError:
-		print colored('File not Found' , 'red')
+	except IOError as e:
+		print colored('IOError' , 'red')
+		print e.message
 
-	except:
-		print colored('Unexpected error : ', sys.exc_info()[0], 'red')
+	except TypeError as e:
+		print colored('TypeError : ' , 'red')
+		print e.message
 
 # Download a file
 # url : url of the file
@@ -54,7 +73,8 @@ def downloadFile(urlApi, url):
 		print colored('Key Error' , 'red')
 
 	except:
-		print colored('Unexpected error : ', sys.exc_info()[0], 'red')
+		print colored('Unexpected error : ', 'red')
+		print(sys.exc_info()[0])
 
 
 #Get headers
@@ -68,3 +88,4 @@ def showHeaders(urlApi, shortname):
 
 	if not find:
 		print colored('Shortname Not Found', 'red')
+
