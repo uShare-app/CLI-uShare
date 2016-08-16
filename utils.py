@@ -3,10 +3,24 @@ import sys
 from clint.textui.progress import Bar as ProgressBar
 
 def create_callback(encoder):
-    encoder_len = encoder.len
-    bar = ProgressBar(expected_size=encoder_len, filled_char='=')
+	''' 
+	Create a callback, and create a progress bar for the upload file
+	encoder = an instance of MultipartEncoder
+	'''
 
-    def callback(monitor):
-        bar.show(monitor.bytes_read)
+	encoder_len = encoder.len
+	bar = ProgressBar(expected_size=encoder_len, filled_char='#')
 
-    return callback
+	def callback(monitor):
+		bar.show(monitor.bytes_read)
+
+	return callback
+
+def createConfigFile():
+	''' Create a config file '''
+	res =  '{\n'
+	res += '\t"url" : "https://uplmg.com", \n'
+	res += '\t"saveHistory" : true \n'
+	res += '}'
+
+	return res

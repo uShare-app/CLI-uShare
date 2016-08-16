@@ -5,13 +5,21 @@ import sys
 
 from tabulate import tabulate
 
-#Show Search
-def showSearch(urlApi, page, date):
+def showSearch(urlApi, page = 1, date = '0000-00-00'):
+	'''
+	Search file with a page or a date
+	ROUTE = (GET) /api/files/search
+
+	urlApi	= (String) Url of the server, example : https://uplmg.com
+	page	= (Integer) Number of the page (Optionnal)
+	date	= (String) Format : aaaa-mm-dd Date of the file (Optional)
+	'''
+
 	headers = ['shortName', 'originalFileName', 'size', 'encoding', 'mimetype', 'extension', 'senderid', 'views']
 	datas = []
 	req = urlApi + '/api/files/search'
 
-	if date != 0:
+	if date != '0000-00-00':
 		split = date.split('-')
 		if len(split) == 3 and len(split[0]) == 4 and len(split[1]) == 2 and len(split[2]) == 2:
 			req += '/' + str(date)

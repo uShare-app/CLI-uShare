@@ -10,10 +10,15 @@ from utils import *
 from time import sleep
 from requests_toolbelt import MultipartEncoder, MultipartEncoderMonitor
 
-# Upload a file
-# file : path of the file
 def uploadFile(urlApi, file, copy):
+	'''
+	Upload a file
+	ROUTE	= (POST) /file/upload
 
+	urlApi	= (String) Url of the server, example : https://uplmg.com
+	file 	= (String) Path of the file to send 
+	copy 	= (Boolean) True for copy in the clipboard,
+	'''
 	try:
 		mimetypes.init()
 		filename = file.split('/')[-1]
@@ -32,16 +37,8 @@ def uploadFile(urlApi, file, copy):
 		callback = create_callback(encoder)
 		monitor = MultipartEncoderMonitor(encoder, callback)
 
-		r = requests.post
-		(
-			urlApi + '/file/upload', 
-			data=monitor, 
-			headers=
-			{
-				'Content-Type': monitor.content_type
-			}
-		)
-
+		r = requests.post(urlApi + '/file/upload', data = monitor, headers={'Content-Type': monitor.content_type})
+		
 		print colored('\n' + r.text, 'blue')
 
 		if copy == True:
@@ -56,11 +53,16 @@ def uploadFile(urlApi, file, copy):
 		print colored('TypeError : ' , 'red')
 		print e.message
 
-# Download a file
-# url : url of the file
 def downloadFile(urlApi, url):
-	url = str(url)
+	'''
+	Download a file
+	ROUTE	= (HEAD) /:url
 	
+	urlApi 	= (String) Url of the server, example : https://uplmg.com
+	url 	= (String) ShortName of the file, or the complete url
+	'''
+	url = str(url)
+
 	try:
 		if not url.startswith('http'):
 			url = urlApi + '/' + url
@@ -69,16 +71,22 @@ def downloadFile(urlApi, url):
 		head = requests.head(url)
 		call(['mv', url.split('/')[-1] , head.headers['Uplmg-Filename'] + "." + head.headers['Uplmg-Extension']])
 
-	except KeyError:
+	except KeyError as e:
 		print colored('Key Error' , 'red')
-
+		print e.message
 	except:
 		print colored('Unexpected error : ', 'red')
 		print(sys.exc_info()[0])
 
 
-#Get headers
 def showHeaders(urlApi, shortname):
+	'''
+	Show the headers of a file
+	ROUTE		= (HEAD) /:shortname
+
+	urlApi		= (String) Url of the server, example : https://uplmg.com
+	shortname 	= (String) ShortName of the file
+	'''
 	r = requests.head(urlApi + '/' + shortname)
 	find = False
 	for name, value in r.headers.items():
@@ -88,4 +96,3 @@ def showHeaders(urlApi, shortname):
 
 	if not find:
 		print colored('Shortname Not Found', 'red')
-

@@ -15,7 +15,7 @@ from stats import *
 from termcolor import colored
 
 configFile = ""
-localVersion = "0.2-Beta"
+localVersion = "0.4-Beta"
 fileVersion = json.loads(requests.get("https://update.uplmg.com/cli.json").text)
 
 if fileVersion['version'] != localVersion:
@@ -27,12 +27,12 @@ try:
 	configFile = open(path + "config.json")
 except:
 	configFile = open(path + "config.json", "w")
-	configFile.write('{"url" : "https://uplmg.com"}')
+	configFile.write(createConfigFile())
+	
 	configFile.close()
 	configFile = open(path + "config.json")
 
 urlApi = json.load(configFile)['url']
-
 
 sendHelp = colored('Commands :', 'green')
 sendHelp += colored("\nuplmg <file> [-c]", 'yellow')
@@ -96,7 +96,7 @@ def main(argv):
 	#CMD : uplmg search [-p <number>] [-d <date format aaaa-mm-jj>]
 	elif "search" in args:
 		page = 0
-		date = 0
+		date = ''
 		try:
 			if '-p' in args:
 				page = int(args[args.index('-p') + 1])
@@ -106,7 +106,7 @@ def main(argv):
 			print(sendHelp)
 			sys.exit()
 
-		showSearch(urlApi, page, date)
+		showSearch(urlApi, page=page, date=date)
 		sys.exit
 
 	#CMD : uplmg <file>
