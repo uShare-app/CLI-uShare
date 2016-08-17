@@ -1,6 +1,6 @@
 # CLI uShare
 
-CLI Uplmg use the API of Uplimg's server (you can find the github project [here](https://github.com/uShare-app/server)) to share and redistribute your files quickly and easily.
+CLI uShare use the API of Uplimg's server (you can find the github project [here](https://github.com/uShare-app/server)) to share and redistribute your files quickly and easily.
 
 ## Getting started
 
