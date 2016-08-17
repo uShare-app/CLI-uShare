@@ -10,15 +10,17 @@ from utils import *
 from time import sleep
 from requests_toolbelt import MultipartEncoder, MultipartEncoderMonitor
 
-def uploadFile(urlApi, file, copy):
+def uploadFile(file, copy):
 	'''
 	Upload a file
 	ROUTE	= (POST) /file/upload
 
-	urlApi	= (String) Url of the server, example : https://uplmg.com
 	file 	= (String) Path of the file to send 
 	copy 	= (Boolean) True for copy in the clipboard,
 	'''
+
+	urlApi = getConfig()['url']
+
 	try:
 		mimetypes.init()
 		filename = file.split('/')[-1]
@@ -53,7 +55,7 @@ def uploadFile(urlApi, file, copy):
 		print colored('TypeError : ' , 'red')
 		print e.message
 
-def downloadFile(urlApi, url):
+def downloadFile(url):
 	'''
 	Download a file
 	ROUTE	= (HEAD) /:url
@@ -61,6 +63,7 @@ def downloadFile(urlApi, url):
 	urlApi 	= (String) Url of the server, example : https://uplmg.com
 	url 	= (String) ShortName of the file, or the complete url
 	'''
+	urlApi = getConfig()['url']
 	url = str(url)
 
 	try:
@@ -79,7 +82,7 @@ def downloadFile(urlApi, url):
 		print(sys.exc_info()[0])
 
 
-def showHeaders(urlApi, shortname):
+def showHeaders(shortname):
 	'''
 	Show the headers of a file
 	ROUTE		= (HEAD) /:shortname
@@ -87,6 +90,8 @@ def showHeaders(urlApi, shortname):
 	urlApi		= (String) Url of the server, example : https://uplmg.com
 	shortname 	= (String) ShortName of the file
 	'''
+
+	urlApi = getConfig()['url']
 	r = requests.head(urlApi + '/' + shortname)
 	find = False
 	for name, value in r.headers.items():

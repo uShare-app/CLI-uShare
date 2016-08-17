@@ -1,6 +1,9 @@
 import sys
+import json
+import os
 
 from clint.textui.progress import Bar as ProgressBar
+from pprint import pprint
 
 def create_callback(encoder):
 	''' 
@@ -24,3 +27,18 @@ def createConfigFile():
 	res += '}'
 
 	return res
+
+def loadConfig(path):
+	global configFile
+
+	if not os.path.exists(path + "config.json"):
+		configFile = open(path + "config.json", "w")
+		configFile.write(createConfigFile())
+		configFile.close()
+
+	configFile = open(path + "config.json")
+
+	configFile = json.load(configFile)
+
+def getConfig():
+	return configFile

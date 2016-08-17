@@ -2,10 +2,11 @@ import json
 import mimetypes
 import requests
 import sys
+from utils import *
 
 from tabulate import tabulate
 
-def showSearch(urlApi, page = 1, date = '0000-00-00'):
+def showSearch(page = 1, date = '0000-00-00'):
 	'''
 	Search file with a page or a date
 	ROUTE = (GET) /api/files/search
@@ -14,7 +15,8 @@ def showSearch(urlApi, page = 1, date = '0000-00-00'):
 	page	= (Integer) Number of the page (Optionnal)
 	date	= (String) Format : aaaa-mm-dd Date of the file (Optional)
 	'''
-
+	
+	urlApi = getConfig()['url']
 	headers = ['shortName', 'originalFileName', 'size', 'encoding', 'mimetype', 'extension', 'senderid', 'views']
 	datas = []
 	req = urlApi + '/api/files/search'
