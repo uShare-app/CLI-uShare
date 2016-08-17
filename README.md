@@ -1,6 +1,6 @@
-# CLI Uplmg
+# CLI uShare
 
-CLI Uplmg use the API of Uplimg's server (you can find the github project [here](https://github.com/Uplimg/server)) to share and redistribute your files quickly and easily.
+CLI Uplmg use the API of Uplimg's server (you can find the github project [here](https://github.com/uShare-app/server)) to share and redistribute your files quickly and easily.
 
 ## Getting started
 
@@ -10,7 +10,7 @@ You can download the last version of CLI [here](https://uplmg.com/cuw) :
 
 ## Lists of commands
 
-You can find the commands on the [wiki](https://github.com/uShare-app/CLI-Uplmg/wiki)
+You can find the commands on the [wiki](https://github.com/uShare-app/CLI-uShare/wiki)
 
 ## And more
 
