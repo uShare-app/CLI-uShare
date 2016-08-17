@@ -5,8 +5,8 @@ import sys, getopt
 import json
 import requests
 
-path = __file__[0 : -8]
-
+path = __file__[0 : -9]
+print path
 sys.path.insert(0, path + 'api/')
 
 from file import *
