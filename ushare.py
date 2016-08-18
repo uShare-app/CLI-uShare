@@ -6,7 +6,6 @@ import json
 import requests
 
 path = __file__[0 : -9]
-print path
 sys.path.insert(0, path + 'api/')
 
 from file import *
@@ -23,6 +22,7 @@ if fileVersion['version'] != localVersion:
 	print colored('Update : ' + fileVersion['description'], 'red')
 
 loadConfig(path)
+loadDatabase(path)
 
 sendHelp = colored('Commands :', 'green')
 sendHelp += colored("\nuplmg <file> [-c]", 'yellow')
@@ -30,7 +30,8 @@ sendHelp += colored("\nuplmg sendfile <file> [-c]", 'yellow')
 sendHelp += colored("\nuplmg download <url / shortname>", 'yellow')
 sendHelp += colored("\nuplmg showheaders <shortname>", 'yellow')
 sendHelp += colored("\nuplmg showstats", 'yellow')
-sendHelp += colored("\nuplmg search", 'yellow')
+sendHelp += colored("\nuplmg search [-p <number>] [-d <yyyy-mm-dd>]", 'yellow')
+sendHelp += colored("\nuplmg history", 'yellow')
 
 
 # main function
@@ -51,39 +52,48 @@ def main(argv):
 				copy = True
 
 			uploadFile(args[1], copy)
-			sys.exit()
 		else:
 			print(sendHelp)
+		sys.exit()
 
 	#Download File
 	#CMD : uplmg downloadfile <url / shortname>
 	elif "download" in args:
 		if len(args) == 2:
 			downloadFile(args[1])
-			sys.exit()
 		else:
 			print(sendHelp)
+		sys.exit()
 
 	#Show headers of a uploaded file
-	#CMD : uplmg <showheaders>
+	#CMD : uplmg showheaders
 	elif "showheaders" in args:
-		if len( args ) == 2:
+		if len(args) == 2:
 			showHeaders(args[1])
-			sys.exit()
 		else:
 			print(sendHelp)
+		sys.exit()
+
+	#Show history
+	#CMD : ushare history
+	elif "history" in args:
+		if len(args) == 1:
+			showHistory()
+		else:
+			print(sendHelp)
+		sys.exit()
 
 	#Show the stats
-	#CMD : uplmg <showstats>
+	#CMD : uplmg showstats
 	elif "showstats" in args:
 		if len(args) == 1:
 			showStats()
-			sys.exit
 		else:
 			print(sendHelp)
+		sys.exit()
 
 	#Show the search
-	#CMD : uplmg search [-p <number>] [-d <date format aaaa-mm-jj>]
+	#CMD : uplmg search [-p <number>] [-d <date format aaaa-mm-dd>]
 	elif "search" in args:
 		page = 0
 		date = ''
@@ -99,7 +109,7 @@ def main(argv):
 		showSearch(page=page, date=date)
 		sys.exit
 
-	#CMD : uplmg <file>
+	#CMD : uplmg file
 	elif len(args) >= 1:
 		copy = False
 		if '-c' in args:

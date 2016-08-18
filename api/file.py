@@ -3,6 +3,7 @@ import mimetypes
 import requests, grequests
 import sys
 import pyperclip
+import time
 
 from subprocess import call
 from termcolor import colored
@@ -46,6 +47,9 @@ def uploadFile(file, copy):
 		if copy == True:
 			pyperclip.copy(r.text)
 			print colored('Copied in clipboard', 'green')
+
+		if bool(getConfig()['saveHistory']):
+			addHistory(r.text.split('/')[-1], time.strftime("%Y-%m-%d"), filename)			
 
 	except IOError as e:
 		print colored('IOError' , 'red')
