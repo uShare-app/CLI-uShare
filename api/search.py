@@ -2,8 +2,8 @@ import json
 import mimetypes
 import requests
 import sys
-from utils import *
 
+from utils import *
 from tabulate import tabulate
 
 def showSearch(page = 1, date = '0000-00-00'):
@@ -32,21 +32,21 @@ def showSearch(page = 1, date = '0000-00-00'):
 	r = requests.get(req)
 	search = json.loads(r.text)
 	for i in search:
-		data = []
-		data.append(i['shortName'])
-		data.append(i['originalFileName'][0: 45])
-		data.append(i['size'])
-		data.append(i['encoding'])
-		data.append(i['mimetype'])
+		value = []
+		value.append(i['shortName'])
+		value.append(i['originalFileName'][0: 45])
+		value.append(i['size'])
+		value.append(i['encoding'])
+		value.append(i['mimetype'])
 		
 		try:
-			data.append(i['extension'])
+			value.append(i['extension'])
 		except KeyError:
-			data.append('Not Found')
+			value.append('Not Found')
 
-		data.append(i['senderid'])
-		data.append(i['views'])
+		value.append(i['senderid'])
+		value.append(i['views'])
 
-		datas.append(data)
+		datas.append(value)
 
 	print(tabulate(datas, headers=headers, tablefmt='orgtbl'))

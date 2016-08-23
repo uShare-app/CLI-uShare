@@ -31,7 +31,7 @@ sendHelp += colored("\nuplmg download <url / shortname>", 'yellow')
 sendHelp += colored("\nuplmg showheaders <shortname>", 'yellow')
 sendHelp += colored("\nuplmg showstats", 'yellow')
 sendHelp += colored("\nuplmg search [-p <number>] [-d <yyyy-mm-dd>]", 'yellow')
-sendHelp += colored("\nuplmg history", 'yellow')
+sendHelp += colored("\nuplmg history [-d <shortName>]", 'yellow')
 
 
 # main function
@@ -79,6 +79,8 @@ def main(argv):
 	elif "history" in args:
 		if len(args) == 1:
 			showHistory()
+		elif len(args) == 3 and "-d" in args:
+			deleteHistory(str(args[args.index('-d') + 1]))
 		else:
 			print(sendHelp)
 		sys.exit()

@@ -68,6 +68,16 @@ def addHistory(shortName, dateOfUpload, file):
 	con.commit()
 	c.close()
 
+def deleteHistory(shortName):
+	'''
+	Delete line in database.db
+	'''
+	con = sql.connect(database)
+	c = con.cursor()
+	c.execute('DELETE FROM History WHERE shortName = "' + shortName + '"')
+	con.commit()
+	c.close()
+
 def showHistory():
 	'''
 	Show the history
