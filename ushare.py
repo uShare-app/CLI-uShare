@@ -6,11 +6,10 @@ import json
 import requests
 
 path = __file__[0 : -9]
-sys.path.insert(0, path + 'api/')
 
-from file import *
-from search import *
-from stats import *
+from api.File import *
+from api.Search import *
+from api.Stats import *
 from termcolor import colored
 
 localVersion = "0.4-Beta"
